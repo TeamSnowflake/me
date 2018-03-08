@@ -10,4 +10,13 @@
     <string name="navigation_qr">Me</string>
     <string name="navigation_records">Eigenschappen</string>
     <string name="navigation_wallet">Eigendommen</string>
+    <string name="record_personal">Persoonlijk</string>
+    <string name="record_medical">Medisch</string>
+    <string name="record_professional">Professioneel</string>
+    <string name="record_relations">Relaties</string>
+    <string name="record_licences">Licenties</string>
+    <string name="record_other">Overig</string>
+    <string name="title_activity_wallet">WalletActivity</string>
+    <string name="title_activity_records">RecordsActivity</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>

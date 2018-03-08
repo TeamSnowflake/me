@@ -7,21 +7,17 @@ import android.content.Context
 import android.os.Handler
 import android.os.HandlerThread
 import io.forus.me.dao.AccountDao
-import io.forus.me.dao.RecordCategoryDao
 import io.forus.me.dao.RecordDao
 import io.forus.me.dao.TokenDao
 import io.forus.me.entities.Account
 import io.forus.me.entities.Record
-import io.forus.me.entities.RecordCategory
 import io.forus.me.entities.Token
-import kotlin.concurrent.thread
 
 @Database(entities = arrayOf(
         Account::class,
         Record::class,
-        RecordCategory::class,
         Token::class
-        ), version = 3)
+        ), version = 4)
 abstract class DatabaseService: RoomDatabase() {
     private val ACCOUNT_THREAD: String = "DATA_ACCOUNT"
     private val RECORD_THREAD: String = "DATA_RECORD"
@@ -57,7 +53,6 @@ abstract class DatabaseService: RoomDatabase() {
 
     abstract fun accountDao():AccountDao
     abstract fun recordDao(): RecordDao
-    abstract fun recordCategoryDao(): RecordCategoryDao
     abstract fun tokenDao(): TokenDao
 
     fun delete(account: Account) {
@@ -66,10 +61,6 @@ abstract class DatabaseService: RoomDatabase() {
 
     fun delete(record: Record) {
         recordThread.postTask(Runnable { recordDao().delete(record) })
-    }
-
-    fun delete(recordCategory: RecordCategory) {
-        recordThread.postTask(Runnable { recordCategoryDao().delete(recordCategory) })
     }
 
     fun delete(token: Token) {
@@ -82,10 +73,6 @@ abstract class DatabaseService: RoomDatabase() {
 
     fun insert(record: Record) {
         recordThread.postTask(Runnable {recordDao().insert(record)})
-    }
-
-    fun insert(recordCategory: RecordCategory) {
-        recordThread.postTask(Runnable { recordCategoryDao().insert(recordCategory) })
     }
 
     fun insert(token: Token) {

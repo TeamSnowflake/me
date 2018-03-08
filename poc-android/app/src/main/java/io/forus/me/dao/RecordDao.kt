@@ -13,8 +13,8 @@ import io.forus.me.entities.RecordCategory
  */
 @Dao
 interface RecordDao {
-    @Query("SELECT * FROM record WHERE `recordCategoryId` = :arg0")
-    fun getRecordsFromCategory(category: Int): LiveData<List<Record>>
+    @Query("SELECT * FROM record WHERE `recordCategoryId` = :arg0 AND `account` = :arg1")
+    fun getRecordsFromCategoryAndAccount(category: Int, account:String): LiveData<List<Record>>
 
     @Insert
     fun insert(recordCategory: Record)
