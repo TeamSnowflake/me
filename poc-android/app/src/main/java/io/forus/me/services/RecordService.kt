@@ -39,8 +39,8 @@ class RecordService : BaseService() {
         val inject: RecordService = RecordService()
         private var _categories:Map<Int, RecordCategory>? = null
 
-        public fun getRecordsByCategoryByAccount(category: Int, account: String): LiveData<List<Record>>? {
-            return DatabaseService.database?.recordDao()?.getRecordsFromCategoryAndAccount(category, account)
+        fun getRecordsByCategoryByAccount(category: Int, account: String): LiveData<List<Record>>? {
+            return DatabaseService.database?.recordDao()?.getRecordsFromCategoryAndAccount(category)
         }
 
         fun getRecordCategoriesByAccount(account:String): Map<Int, RecordCategory> {

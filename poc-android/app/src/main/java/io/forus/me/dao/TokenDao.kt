@@ -17,6 +17,9 @@ interface TokenDao {
     @Query("SELECT * FROM `token`")
     fun getTokens(): LiveData<List<Token>>
 
+    @Query("SELECT * FROM ``TOKEN` WHERE `account` = arg0")
+    fun getTokenByAddressByAccount(address:String): Token
+
     @Insert
     fun insert(token: Token)
 

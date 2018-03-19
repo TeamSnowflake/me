@@ -1,5 +1,7 @@
 <resources>
     <string name="accept">Accepteren</string>
+    <string name="add">Toevoegen</string>
+    <string name="alert_add_qr_text">De code bevat gegevens voor %s. Wil je deze aan je identiteit toevoegen?</string>
     <string name="app_name">Me</string>
     <string name="cancel">Annuleren</string>
     <string name="choose_name">Choose name</string>
@@ -16,6 +18,9 @@
     <string name="record_relations">Relaties</string>
     <string name="record_licences">Licenties</string>
     <string name="record_other">Overig</string>
+    <string name="tab_tokens">Tokens</string>
+    <string name="tab_assets">Assets</string>
+    <string name="tab_services">Services</string>
     <string name="title_activity_wallet">WalletActivity</string>
     <string name="title_activity_records">RecordsActivity</string>
     <string name="title_activity_main">MainActivity</string>

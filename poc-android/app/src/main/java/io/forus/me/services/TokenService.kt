@@ -20,5 +20,9 @@ class TokenService : BaseService() {
         fun getTokensByAccount(account:String): LiveData<List<Token>>? {
             return DatabaseService.database?.tokenDao()?.getTokens()
         }
+
+        fun getTokenByAddressByAccount(address:String, account:String): Token? {
+            return DatabaseService.database?.tokenDao()?.getTokenByAddressByAccount(address)
+        }
     }
 }
