@@ -15,7 +15,8 @@ import net.glxn.qrgen.android.QRCode
 abstract class EthereumItem(
         @ColumnInfo(name="address")
         var address: String,
-        var name: String) {
+        var name: String,
+        var account: String) {
 
     @PrimaryKey
     var id: Long? = null

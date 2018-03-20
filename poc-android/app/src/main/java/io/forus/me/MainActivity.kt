@@ -13,7 +13,6 @@ import android.widget.Toast
 import io.forus.me.entities.Record
 import io.forus.me.entities.base.EthereumItem
 import io.forus.me.services.DatabaseService
-import io.forus.me.views.LayoutDialog
 import io.forus.me.views.main.MainPagerAdapter
 import io.forus.me.views.me.MeFragment
 import io.forus.me.views.record.RecordsFragment

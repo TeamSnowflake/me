@@ -14,8 +14,8 @@ import io.forus.me.entities.Service
 //@Dao
 interface ServiceDao {
 
-    @Query("SELECT * FROM `asset`")
-    fun getServices(): LiveData<List<Service>>
+    @Query("SELECT * FROM `asset` WHERE `account` = :arg0")
+    fun getServices(account: String): LiveData<List<Service>>
 
     @Insert
     fun create(service: Service)

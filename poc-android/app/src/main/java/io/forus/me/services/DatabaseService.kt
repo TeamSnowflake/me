@@ -17,7 +17,7 @@ import io.forus.me.entities.Token
         Account::class,
         Record::class,
         Token::class
-        ), version = 4)
+        ), version = 5)
 abstract class DatabaseService: RoomDatabase() {
     private val ACCOUNT_THREAD: String = "DATA_ACCOUNT"
     private val RECORD_THREAD: String = "DATA_RECORD"

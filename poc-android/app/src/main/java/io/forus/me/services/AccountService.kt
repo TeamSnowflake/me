@@ -1,6 +1,7 @@
 package io.forus.me.services
 
 import android.arch.lifecycle.LiveData
+import android.arch.persistence.room.Database
 import io.forus.me.entities.Account
 
 /**
@@ -8,7 +9,7 @@ import io.forus.me.entities.Account
  */
 class AccountService {
     companion object {
-        var currentUser:Account? = Account("0x7b2afe6d5e16944084eaa292ecaa9c3b6469b445", "Mijn Overheid")
+        var currentUser:Account? = null//Account("0x7b2afe6d5e16944084eaa292ecaa9c3b6469b445", "Mijn Overheid")
         val currentAddress:String
                 get() {
                     if (currentUser != null) {
@@ -16,6 +17,10 @@ class AccountService {
                     }
                     return ""
                 }
+        fun anyExists(): Boolean {
+            val count = DatabaseService.database?.accountDao()?.getAccountCount()
+             return  (count != null && count > 0)
+        }
 
         fun getAccountById(accountId: Int): Account? {
             return DatabaseService.database?.accountDao()?.getAccountById(accountId)

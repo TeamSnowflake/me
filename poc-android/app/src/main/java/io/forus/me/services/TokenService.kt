@@ -18,11 +18,11 @@ class TokenService : BaseService() {
         }
 
         fun getTokensByAccount(account:String): LiveData<List<Token>>? {
-            return DatabaseService.database?.tokenDao()?.getTokens()
+            return DatabaseService.database?.tokenDao()?.getTokens(account)
         }
 
         fun getTokenByAddressByAccount(address:String, account:String): Token? {
-            return DatabaseService.database?.tokenDao()?.getTokenByAddressByAccount(address)
+            return DatabaseService.database?.tokenDao()?.getTokenByAddressByAccount(address, account)
         }
     }
 }

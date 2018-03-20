@@ -14,8 +14,8 @@ import io.forus.me.entities.Asset
 //@Dao
 interface AssetDao {
 
-    @Query("SELECT * FROM `asset`")
-    fun getAssets(): LiveData<List<Asset>>
+    @Query("SELECT * FROM `asset` WHERE `account` = :account")
+    fun getAssets(account:String): LiveData<List<Asset>>
 
     @Insert
     fun create(asset: Asset)

@@ -10,4 +10,4 @@ import io.forus.me.entities.base.EthereumItem
 class Account(
         address:String = "",
         name: String = ""
-) : EthereumItem(address, name)
+) : EthereumItem(address, name, address)

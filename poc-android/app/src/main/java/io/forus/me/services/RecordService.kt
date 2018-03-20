@@ -40,7 +40,7 @@ class RecordService : BaseService() {
         private var _categories:Map<Int, RecordCategory>? = null
 
         fun getRecordsByCategoryByAccount(category: Int, account: String): LiveData<List<Record>>? {
-            return DatabaseService.database?.recordDao()?.getRecordsFromCategoryAndAccount(category)
+            return DatabaseService.database?.recordDao()?.getRecordsFromCategoryAndAccount(category, account)
         }
 
         fun getRecordCategoriesByAccount(account:String): Map<Int, RecordCategory> {
@@ -64,7 +64,7 @@ class RecordService : BaseService() {
          * @param category The category of the record
          */
         fun newRecord(address: String, name: String, category: RecordCategory) {
-            DatabaseService.database?.insert(Record(address, name, category.id))
+            DatabaseService.database?.insert(Record(address, name, AccountService.currentAddress, category.id))
         }
     }
 }

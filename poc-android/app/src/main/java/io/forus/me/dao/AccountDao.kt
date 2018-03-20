@@ -17,6 +17,9 @@ interface AccountDao {
     @Query("SELECT * FROM `account` WHERE `id` = :arg0")
     fun getAccountById(accountId: Int): Account
 
+    @Query("SELECT COUNT(*) FROM `account`")
+    fun getAccountCount(): Int
+
     @Query("SELECT * FROM `account`")
     fun getAccounts(): LiveData<List<Account>>
 

@@ -42,7 +42,8 @@ class LoginActivity : Activity() {
         val raw = intent.extras["attributes"]
         if (raw is Array<*>) {
             val items: List<EthereumItem> = MutableList<EthereumItem>(raw.size, {index: Int ->
-                Token("TestAddress", raw[index].toString(), 7.0)
+                // TODO fix hardcoding
+                Token("TestAddress", raw[index].toString(), "0x01234567890123456789", 7.0)
             })
             list = findViewById(R.id.external_login_attribute_container)
             list.layoutManager = LinearLayoutManager(this)
