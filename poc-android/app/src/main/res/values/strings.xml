@@ -3,12 +3,19 @@
     <string name="add">Toevoegen</string>
     <string name="alert_add_qr_text">De code bevat gegevens voor %s. Wil je deze aan je identiteit toevoegen?</string>
     <string name="app_name">Me</string>
+    <string name="assign_delegates_subtitle">Wijs delegaten aan</string>
+    <string name="assign_delegates_title">Delegaten</string>
     <string name="cancel">Annuleren</string>
     <string name="choose_name">Choose name</string>
+    <string name="close">Sluiten</string>
     <string name="create">Aanmaken</string>
     <string name="decline">Weigeren</string>
+    <string name="do_later">Dit wil ik later doen</string>
     <string name="i_accept">Dit vind ik goed</string>
+    <string name="let_delegates_scan">Laat delegaten deze code scannen vanaf hun telefoon.</string>
     <string name="loading">Aan het laden…</string>
+    <string name="logout">Log uit</string>
+    <string name="my_qr_title">Mijn QR-code</string>
     <string name="navigation_qr">Me</string>
     <string name="navigation_records">Eigenschappen</string>
     <string name="navigation_wallet">Eigendommen</string>
@@ -20,9 +27,11 @@
     <string name="record_relations">Relaties</string>
     <string name="record_licences">Licenties</string>
     <string name="record_other">Overig</string>
+    <string name="records_title">Over mij</string>
     <string name="register_help_1">Om van je identiteit gebruik te kunnen maken, moet je je eerst registreren. Die gebruikt alleen een wachtwoord. De rest bepaald de applicatie zelf en hoef jij verder niks mee te doen. Simpel, toch?</string>
     <string name="register_help_2">Registreren gebeurt alleen op je telefoon. Hier hoef je geen internet verbinding voor te hebben. De gegevens die je maakt en gebruikt komen namelijk alleen op je telefoon en nergens anders: puur in jouw bezit.</string>
     <string name="restore">Herstellen</string>
+    <string name="set_at_least_one_delegate">Neem ten minste 1 delegaat om je gegevens terug te halen bij een verloren telefoon.</string>
     <string name="tab_tokens">Tokens</string>
     <string name="tab_assets">Assets</string>
     <string name="tab_services">Services</string>
@@ -32,4 +41,6 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="welcome">Welcome to Me</string>
     <string name="welcome_subtitle">Let\'s set up your identity</string>
+    <string name="why_do_i_need_this">Waarom is dit nodig?</string>
+    <string name="title_activity_assign_delegates">AssignDelegatesActivity</string>
 </resources>

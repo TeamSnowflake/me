@@ -15,7 +15,7 @@ import io.forus.me.entities.Account
 interface AccountDao {
 
     @Query("SELECT * FROM `account` WHERE `id` = :arg0")
-    fun getAccountById(accountId: Int): Account
+    fun getAccountById(accountId: Long): Account
 
     @Query("SELECT COUNT(*) FROM `account`")
     fun getAccountCount(): Int
@@ -24,7 +24,7 @@ interface AccountDao {
     fun getAccounts(): LiveData<List<Account>>
 
     @Insert
-    fun create(account: Account)
+    fun create(account: Account): Long
 
     @Delete
     fun delete(account: Account)

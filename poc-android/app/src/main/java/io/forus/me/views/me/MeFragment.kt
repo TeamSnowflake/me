@@ -16,6 +16,7 @@ import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.BarcodeView
 import io.forus.me.entities.base.EthereumItem
+import kotlinx.android.synthetic.main.my_qr_view.*
 
 
 /**
@@ -25,6 +26,10 @@ class MeFragment : Fragment() {
     private lateinit var qrListener: QrListener
     private var running: Boolean = false
     private lateinit var scanner: BarcodeView
+
+    fun closeMyQr(view: View) {
+        my_qr_view.visibility = View.INVISIBLE
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.me_fragment, container, false)
@@ -80,6 +85,10 @@ class MeFragment : Fragment() {
 
     fun resumeScanner() {
         scanner.resume()
+    }
+
+    fun showMyQr(view:View) {
+        my_qr_view.visibility = View.VISIBLE
     }
 
     fun with(listener: QrListener): MeFragment {

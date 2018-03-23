@@ -62,4 +62,8 @@ dependencies {
     // JSON parser
     //compile 'com.beust:klaxon:2.1.9'
 
+    // Web3J
+    compile('org.web3j:core:3.3.1-android')
+    compile "org.jetbrains.kotlin:kotlin-reflect:1.2.20"
+
 }

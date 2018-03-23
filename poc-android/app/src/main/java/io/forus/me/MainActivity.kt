@@ -1,18 +1,23 @@
 package io.forus.me
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.Snackbar
-import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.widget.Button
 import android.widget.Toast
 import io.forus.me.entities.Record
+import io.forus.me.entities.Token
 import io.forus.me.entities.base.EthereumItem
+import io.forus.me.helpers.ThreadHelper
+import io.forus.me.services.AccountService
 import io.forus.me.services.DatabaseService
+import io.forus.me.services.TokenService
+import io.forus.me.services.Web3Service
 import io.forus.me.views.main.MainPagerAdapter
 import io.forus.me.views.me.MeFragment
 import io.forus.me.views.record.RecordsFragment
@@ -20,6 +25,7 @@ import io.forus.me.views.wallet.WalletFragment
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.alert_add_qr.*
+import java.util.concurrent.Callable
 
 
 class MainActivity : AppCompatActivity(), MeFragment.QrListener {
@@ -28,28 +34,18 @@ class MainActivity : AppCompatActivity(), MeFragment.QrListener {
     private lateinit var mainPager: ViewPager
     private lateinit var meFragment: MeFragment
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == MainActivity.RequestCode.LOGIN) {
+            initMainView()
+        }
+    }
+
+    private fun initMainView() {
         setContentView(R.layout.activity_main)
-
-        /*val currentAccount = this.getCurrentAccountFromSettings()
-        if (currentAccount != null) {
-            AccountService.currentUser = currentAccount
-        }*/
-
-        this.dataThread = DatabaseService.DataThread("DATA_MAIN")
-        this.dataThread.start()
-
-        this.dataThread.postTask(Runnable { DatabaseService.inject(this) })
-
-        // Hold the main process until database is loaded.
-        while (!DatabaseService.ready) {}
-
-
         this.mainPager = findViewById(R.id.main_pager)
         //this.mainPager.setPageTransformer(false, MainTransformer())
         //this.mainPager.addOnPageChangeListener(this)
-
 
         val fragments = ArrayList<Fragment>()
         fragments.add(MainPager.WALLET_VIEW, WalletFragment())
@@ -60,6 +56,20 @@ class MainActivity : AppCompatActivity(), MeFragment.QrListener {
         this.mainPager.adapter = adapter
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.welcome)
+        Web3Service.initialize(this)
+        // Show welcome screen for 1 second
+        Handler().postDelayed({
+            // Require login to continue
+            if (requireLogin()) {
+                // If logged in, show main view; otherwise, this is done in onActivityResult
+                initMainView()
+            }
+        }, 2200)
     }
 
     override fun onQrError(code: Int) {
@@ -83,6 +93,9 @@ class MainActivity : AppCompatActivity(), MeFragment.QrListener {
             if (result is Record) {
                 this.mainPager.currentItem = MainPager.RECORDS_VIEW
             } else {
+                if (result is Token) {
+                    TokenService.addToken(result)
+                }
                 this.mainPager.currentItem = MainPager.WALLET_VIEW
             }
             alert.dismiss()
@@ -93,6 +106,19 @@ class MainActivity : AppCompatActivity(), MeFragment.QrListener {
             meFragment.resumeScanner()
         }
         alert.show()
+    }
+
+    private fun requireLogin(): Boolean {
+        DatabaseService.prepare(this)
+        val account = ThreadHelper.await(Callable {
+            AccountService.loadCurrentAccount(this)
+        })
+        if (account == null) {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivityForResult(intent, MainActivity.RequestCode.LOGIN)
+            return false
+        }
+        return true
     }
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -119,6 +145,18 @@ class MainActivity : AppCompatActivity(), MeFragment.QrListener {
             internal val WALLET_VIEW: Int = 0
             internal val ME_VIEW: Int = 1
             internal val RECORDS_VIEW: Int = 2
+        }
+    }
+
+    private class RequestCode {
+        companion object {
+            val LOGIN: Int = 42
+        }
+    }
+
+    class ResultCode {
+        companion object {
+            val OK: Int = 1
         }
     }
 }

@@ -11,8 +11,6 @@ class TokenService : BaseService() {
 
 
     companion object {
-        val inject: TokenService = TokenService()
-
         fun addToken(token: Token) {
             DatabaseService.inject.insert(token)
         }

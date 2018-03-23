@@ -20,6 +20,7 @@ import io.forus.me.entities.Token
         ), version = 5)
 abstract class DatabaseService: RoomDatabase() {
     private val ACCOUNT_THREAD: String = "DATA_ACCOUNT"
+    private val MAIN_THREAD: String = "DATA_MAIN"
     private val RECORD_THREAD: String = "DATA_RECORD"
     private val TOKEN_THREAD: String = "DATA_TOKEN"
 
@@ -27,28 +28,19 @@ abstract class DatabaseService: RoomDatabase() {
 
     private val accountThread: DataThread
             get() {
-                if (!threads.containsKey(ACCOUNT_THREAD)) {
-                    threads[ACCOUNT_THREAD] = DataThread(ACCOUNT_THREAD)
-                    threads[ACCOUNT_THREAD]!!.start()
-                }
-                return threads[ACCOUNT_THREAD]!!
+                return getDataThread(ACCOUNT_THREAD)
             }
+
+    val mainThread: DataThread
+            get() = getDataThread(MAIN_THREAD)
 
     private val recordThread: DataThread
             get() {
-                if (!threads.containsKey(RECORD_THREAD)) {
-                    threads[RECORD_THREAD] = DataThread(RECORD_THREAD)
-                    threads[RECORD_THREAD]!!.start()
-                }
-                return threads[RECORD_THREAD]!!
+                return getDataThread(RECORD_THREAD)
             }
     private val tokenThread: DataThread
         get() {
-            if (!threads.containsKey(TOKEN_THREAD)) {
-                threads[TOKEN_THREAD] = DataThread(TOKEN_THREAD)
-                threads[TOKEN_THREAD]!!.start()
-            }
-            return threads[TOKEN_THREAD]!!
+            return getDataThread(TOKEN_THREAD)
         }
 
     abstract fun accountDao():AccountDao
@@ -65,6 +57,14 @@ abstract class DatabaseService: RoomDatabase() {
 
     fun delete(token: Token) {
         tokenThread.postTask(Runnable { tokenDao().delete(token) })
+    }
+
+    private fun getDataThread(key:String): DataThread {
+        if (!threads.containsKey(key)) {
+            threads[key] = DataThread(key)
+            threads[key]!!.start()
+        }
+        return threads[key]!!
     }
 
     fun insert(account: Account) {
@@ -103,6 +103,16 @@ abstract class DatabaseService: RoomDatabase() {
                     }
                     return database!!
                 }
+
+        fun prepare(context: Context): DatabaseService {
+            val thread = DataThread("Initializer")
+            thread.start()
+            thread.postTask(Runnable {
+                this.inject(context)
+            })
+            while (!this.ready) {}
+            return this.inject
+        }
 
     }
 
