@@ -1,0 +1,3 @@
+[submodule "me-ios"]
+	path = me-ios
+	url = https://github.com/teamforus/me-ios.git
