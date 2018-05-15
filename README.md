@@ -25,3 +25,7 @@ By using the QR code scanner you can:
 * Log in to DAPPs / expose your identity
 * Exchange value: image 1.1 is an example of the screen after scanning a voucher.
 * Validate information (properties) image 1.2 is an example of the screen after scanning a validation request as in image 2.1.
+
+# me android
+
+[Documentation permalink](https://github.com/teamforus/me-android/tree/master/app/src/main/java/io/forus/me)
